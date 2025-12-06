@@ -5,12 +5,13 @@
 	<version>2.6.2</version>
 	<name>CPC Dandanator Mini ROM Generator</name>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<mainClass>com.grelobites.romgenerator.MainShade</mainClass>
-		<javafx.version>17.0.10</javafx.version>
-		<maven.compiler.release>8</maven.compiler.release>
-	</properties>
+        <properties>
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+                <mainClass>com.grelobites.romgenerator.MainShade</mainClass>
+                <javafx.version>17.0.10</javafx.version>
+                <javafx.platform>linux</javafx.platform>
+                <maven.compiler.release>8</maven.compiler.release>
+        </properties>
 
     <scm>
         <connection>scm:git:git@github.com:teiram/dandanator-cpc.git</connection>
@@ -41,15 +42,15 @@
             </resource>
 		</resources>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version>
-				<configuration>
-					<source>8</source>
-					<target>8</target>
-				</configuration>
-			</plugin>
+                        <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-compiler-plugin</artifactId>
+                                <version>3.5.1</version>
+                                <configuration>
+                                        <source>8</source>
+                                        <target>8</target>
+                                </configuration>
+                        </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -85,9 +86,57 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.5.3</version>
 			</plugin>
-		</plugins>
-	</build>
-	<dependencies>
+                </plugins>
+        </build>
+        <profiles>
+                <profile>
+                        <id>windows</id>
+                        <activation>
+                                <os>
+                                        <family>windows</family>
+                                </os>
+                        </activation>
+                        <properties>
+                                <javafx.platform>win</javafx.platform>
+                        </properties>
+                </profile>
+                <profile>
+                        <id>macos-aarch64</id>
+                        <activation>
+                                <os>
+                                        <family>mac</family>
+                                        <arch>aarch64</arch>
+                                </os>
+                        </activation>
+                        <properties>
+                                <javafx.platform>mac-aarch64</javafx.platform>
+                        </properties>
+                </profile>
+                <profile>
+                        <id>macos-x86_64</id>
+                        <activation>
+                                <os>
+                                        <family>mac</family>
+                                        <arch>x86_64</arch>
+                                </os>
+                        </activation>
+                        <properties>
+                                <javafx.platform>mac</javafx.platform>
+                        </properties>
+                </profile>
+                <profile>
+                        <id>linux</id>
+                        <activation>
+                                <os>
+                                        <name>Linux</name>
+                                </os>
+                        </activation>
+                        <properties>
+                                <javafx.platform>linux</javafx.platform>
+                        </properties>
+                </profile>
+        </profiles>
+        <dependencies>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -126,74 +175,35 @@
 			<version>2.8.9</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-controls</artifactId>
-			<version>${javafx.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-fxml</artifactId>
-			<version>${javafx.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-media</artifactId>
-			<version>${javafx.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-controls</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>win</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-fxml</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>win</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-controls</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>mac</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-fxml</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>mac</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-controls</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>linux</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-fxml</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>linux</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-graphics</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>win</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-graphics</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>mac</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-graphics</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>linux</classifier>
-		</dependency>
-	</dependencies>
+                <dependency>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-base</artifactId>
+                        <version>${javafx.version}</version>
+                        <classifier>${javafx.platform}</classifier>
+                </dependency>
+                <dependency>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-controls</artifactId>
+                        <version>${javafx.version}</version>
+                        <classifier>${javafx.platform}</classifier>
+                </dependency>
+                <dependency>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-fxml</artifactId>
+                        <version>${javafx.version}</version>
+                        <classifier>${javafx.platform}</classifier>
+                </dependency>
+                <dependency>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-graphics</artifactId>
+                        <version>${javafx.version}</version>
+                        <classifier>${javafx.platform}</classifier>
+                </dependency>
+                <dependency>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-media</artifactId>
+                        <version>${javafx.version}</version>
+                        <classifier>${javafx.platform}</classifier>
+                </dependency>
+        </dependencies>
 </project>
