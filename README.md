@@ -6,25 +6,27 @@ This tool provides a way to create ROMSet compilations with our games of choose.
 Support for games in DSK and CDT format is also provided but still in beta stage.
 
 ## Requisites
-Git, Maven and java8 are needed
+Git, Maven and a JDK (11+ recommended; 17 works well with JavaFX 17) are needed.
 
 ##Cloning the repository
 	git clone https://github.com/teiram/dandanator-cpc.git
 
 ## Building
-Java8 and Maven are needed. Just execute:
+Run the standard Maven build from the project root:
 
-	cd dandanator-cpc
-	mvn install
+        cd dandanator-cpc
+        mvn clean install
+
+Maven will automatically select the right JavaFX artifacts for your platform, including Apple Silicon (`mac-aarch64`), macOS Intel, Windows, and Linux.
 
 ## Executing
 
 An executable jar with all the dependencies bundled in will be generated in the following location:
 
-    dandanator-cpc/target/dandanator-cpc-2.3-jar-with-dependencies.jar
+    dandanator-cpc/target/dandanator-cpc-2.6.2-jar-with-dependencies.jar
 
-that can be executed with the following invocation:
+Run it with:
 
-	java -jar target/dandanator-cpc-2.3-jar-with-dependencies.jar
+        java -jar target/dandanator-cpc-2.6.2-jar-with-dependencies.jar
 
 In most modern operating systems it should be also possible to execute the application by just double clicking on the jar file.
